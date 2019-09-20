@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import csv
+import sys
 
 class ReadNCdata:
     def __init__(self, start_time, end_time, lat, lon, pic_name):
@@ -29,16 +30,16 @@ class ReadNCdata:
         plt.plot(x, y,  color='r')
 
         ax = plt.gca()
-        plt.ylim(-3, 30)
+        # plt.ylim(-3, 30)
         x_major_locator = plt.MultipleLocator(int(length))
         ax.xaxis.set_major_locator(x_major_locator)
-        ax.set_ylim(-3, 30)
+        # ax.set_ylim(-3, 30)
         # plt.ylim(-3, 35)
         # for a, b in zip(x, y):
         #     plt.text(a, b, (a, b), ha='center', va='bottom', fontsize=8)
         # plt.show()
-        plt.savefig("./Pics/" + self.pic_name + ".jpg")
-        with open('./Temp_data/' + self.pic_name + ".csv", "w", encoding = "utf-8") as csvfile:
+        plt.savefig(sys.path[0] + "/Pics/" + self.pic_name + ".jpg")
+        with open(sys.path[0] + '/Temp_data/' + self.pic_name + ".csv", "w", encoding = "utf-8") as csvfile:
             w = csv.writer(csvfile)
             writerows = [["lat is " + str(self.lat)], ["lon is " + str(self.lon)], ["From " + str(self.start_time) + " to " + self.end_time + " sst data "],["time", "sst"]]
             for i in range(len(data)):
@@ -67,7 +68,7 @@ class ReadNCdata:
     def readnc(self):
         start = self.GetDay(self.start_time)
         end = self.GetDay(self.end_time)
-        ncfile = nc.Dataset("sst.mnmean.nc")
+        ncfile = nc.Dataset(sys.path[0] + "\\sst.mnmean.nc")
         sst = ncfile.variables['sst'][start:end]
 
         result = []

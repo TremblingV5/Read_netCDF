@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 
 root = sys.path[0]
 
@@ -15,3 +16,5 @@ name = input("第五步：输入存储名称（得到的数据的文件名） --
 command = "python.exe \"" + root + "\\" + "ReadNC.py\" " + "--start=\"" + start + "\" --end=\"" + end + "\" --lat=\"" + lat + "\" --lon=\"" + lon + "\" --name=\"" + name + "\""
 
 os.system(command)
+
+time.sleep(100)
